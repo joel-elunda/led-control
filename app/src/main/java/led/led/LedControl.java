@@ -54,6 +54,32 @@ public class LedControl extends AppCompatActivity {
         bright = (SeekBar) findViewById(R.id.seekBar);
 
         textLight = (TextView) findViewById(R.id.textBright);
+
+        bright.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser == true)   {
+                    textLight.setText(String.valueOf(progress));
+                    try  {
+                        bluetoothSocket.getOutputStream().write(String.valueOf(progress).getBytes
+                                ());
+                    }
+                    catch (IOException e)   {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
 
@@ -96,6 +122,9 @@ public class LedControl extends AppCompatActivity {
     private void msg(String str)  {
         Toast.makeText(getApplicationContext(), str ,Toast.LENGTH_LONG).show();
     }
+
+
+
 
     // UI thread
     private class ConnectBT extends AsyncTask<Void, Void, Void>   {
