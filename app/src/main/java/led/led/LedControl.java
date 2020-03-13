@@ -56,6 +56,36 @@ public class LedControl extends AppCompatActivity {
         textLight = (TextView) findViewById(R.id.textBright);
     }
 
+
+    //If the btSocket is busy
+    private void Disconnect()  {
+        if (bluetoothSocket != null)   {
+            try  {
+                //close connection
+                bluetoothSocket.close();
+            }
+            catch (IOException e) { msg("Error");}
+        }
+        //return to the first layout
+        finish();
+        //
+    }
+
+    private void turnOffLed()   {
+        if (bluetoothSocket != null) {
+            try {
+                bluetoothSocket.getOutputStream().write("TF".toString().getBytes());
+            }
+            catch (IOException e) {
+                msg("Error");
+            }
+        }
+    }
+
+    private void msg(String str)  {
+        Toast.makeText(getApplicationContext(), str ,Toast.LENGTH_LONG).show();
+    }
+
     // UI thread
     private class ConnectBT extends AsyncTask<Void, Void, Void>   {
         private boolean ConnectSuccess = true;
@@ -64,6 +94,8 @@ public class LedControl extends AppCompatActivity {
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(LedControl.this, "Connecting...", "Please wait!!!");
         }
+
+
 
         @Override
         protected Void doInBackground(Void... devices) {
@@ -96,8 +128,5 @@ public class LedControl extends AppCompatActivity {
             progressDialog.dismiss();
         }
 
-        private void msg(String str)  {
-            Toast.makeText(getApplicationContext(), str ,Toast.LENGTH_LONG).show();
-        }
     }
 }
