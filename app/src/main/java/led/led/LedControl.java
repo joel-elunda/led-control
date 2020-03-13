@@ -82,6 +82,17 @@ public class LedControl extends AppCompatActivity {
         }
     }
 
+    private void turnOnLed()  {
+        if (bluetoothSocket != null)  {
+            try  {
+                bluetoothSocket.getOutputStream().write("TO".toString().getBytes());
+            }
+            catch (IOException e)  {
+                msg("Error");
+            }
+        }
+    }
+
     private void msg(String str)  {
         Toast.makeText(getApplicationContext(), str ,Toast.LENGTH_LONG).show();
     }
