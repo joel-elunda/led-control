@@ -25,8 +25,8 @@ public class DeviceList extends AppCompatActivity {
 
     private BluetoothAdapter bluetoothAdapter;
     private Set<BluetoothDevice> pairedDevices;
-    private OutputStream outputStream;
-    public static String EXTRA_ADDRESS = "";
+    private OutputStream outputStream = null;
+    public static String EXTRA_ADDRESS = "00001101-0000-1000-8000-00805F9B34FB";
 
 
 
@@ -59,7 +59,7 @@ public class DeviceList extends AppCompatActivity {
         btnPair.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                pairedDevicesList();
             }
         });
     }
@@ -79,7 +79,7 @@ public class DeviceList extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
         }
 
-        final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listDevice.setAdapter(adapter);
         //Method called when the device  from the list is clicked
         listDevice.setOnItemClickListener(myListClickListener);
