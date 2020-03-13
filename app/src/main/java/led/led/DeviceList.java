@@ -39,6 +39,7 @@ public class DeviceList extends AppCompatActivity {
         listDevice = (ListView) findViewById(R.id.device_list);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         if(bluetoothAdapter == null)   {
             //Show a mensag. that the device has no bluetooth adapter
             Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
