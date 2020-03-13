@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -55,6 +56,28 @@ public class LedControl extends AppCompatActivity {
 
         textLight = (TextView) findViewById(R.id.textBright);
 
+        btnOn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                turnOnLed();
+            }
+        });
+
+        btnOff.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                turnOffLed();
+            }
+        });
+
+
+        btnDisconnect.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                disconnect();
+            }
+        });
+
         bright.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -84,7 +107,7 @@ public class LedControl extends AppCompatActivity {
 
 
     //If the btSocket is busy
-    private void Disconnect()  {
+    private void disconnect()  {
         if (bluetoothSocket != null)   {
             try  {
                 //close connection
